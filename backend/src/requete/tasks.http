@@ -1,0 +1,33 @@
+### 🔥 Create a new task
+POST http://localhost:8085/api/tasks
+Content-Type: application/json
+
+{
+  "title": "Design database schema",
+  "description": "Create the full ERD",
+  "dueDate": "2025-02-10",
+  "projectId": 1
+}
+
+### 📌 Get all tasks for a project
+GET http://localhost:8085/api/tasks/project/1
+
+### 📌 Get a task by ID
+GET http://localhost:8085/api/tasks/2
+
+### ✏️ Update a task
+PUT http://localhost:8085/api/tasks/1
+Content-Type: application/json
+
+{
+  "title": "Updated task title",
+  "description": "Updated description",
+  "dueDate": "2025-03-01",
+  "completed": true
+}
+
+### 🔄 Toggle task completion
+PATCH http://localhost:8085/api/tasks/1/toggle
+
+### ❌ Delete a task
+DELETE http://localhost:8080/api/tasks/1

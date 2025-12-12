@@ -1,0 +1,29 @@
+### 🔥 Create a new project
+POST http://localhost:8085/api/projects
+Content-Type: application/json
+
+{
+  "title": "Project Alpha",
+  "description": "A sample project for testing"
+}
+
+### 📌 Get all projects
+GET http://localhost:8085/api/projects
+
+### 📌 Get project by ID
+GET http://localhost:8085/api/projects/1
+
+### ✏️ Update a project
+PUT http://localhost:8085/api/projects/1
+Content-Type: application/json
+
+{
+  "title": "Updated Project Alpha",
+  "description": "Updated description"
+}
+
+### ❌ Delete project by ID
+DELETE http://localhost:8085/api/projects/1
+
+### 📊 Get project progress
+GET http://localhost:8085/api/projects/1/progress
