@@ -1,38 +1,75 @@
 .App {
-  text-align: center;
+  animation: fadeSlideIn 0.8s ease-out forwards;
 }
 
+/* =========================
+   Logo : entrée + rotation
+========================= */
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+  animation: logoEnter 1s ease-out forwards,
+             App-logo-spin infinite 20s linear;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
+/* =========================
+   Header : effet pulse léger
+========================= */
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  animation: softPulse 6s ease-in-out infinite;
 }
 
+/* =========================
+   Lien : animation hover
+========================= */
 .App-link {
-  color: #61dafb;
+  position: relative;
+  transition: color 0.3s ease;
 }
 
-@keyframes App-logo-spin {
+.App-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 2px;
+  background-color: #61dafb;
+  transition: width 0.3s ease;
+}
+
+.App-link:hover::after {
+  width: 100%;
+}
+
+/* =========================
+   Keyframes
+========================= */
+@keyframes fadeSlideIn {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
+    transform: translateY(25px);
   }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes logoEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes softPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 rgba(97, 218, 251, 0);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(97, 218, 251, 0.15);
   }
 }

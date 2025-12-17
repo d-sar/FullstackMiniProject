@@ -1,0 +1,138 @@
+### ==================================
+### API Tests with Authentication
+### ==================================
+
+### Variables
+@baseUrl = http://localhost:8085/api
+@token =eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuZXd1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzY1ODg4NTEwLCJleHAiOjE3NjU5NzQ5MTB9.2O9P7JNVDUGYYPG_MxNUoyQ-f-iNVllUvx9pUueab3xNUKvz-mijVqrTPdVbN1jcHu3JWlixuyt-WKiaeC6nuw
+### ==================================
+### AUTHENTICATION ENDPOINTS (Public)
+### ==================================
+
+### Register a new user
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "newuser@example.com",
+  "password": "password123",
+  "fullName": "New User"
+}
+
+### Login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "newuser@example.com",
+  "password": "password123"
+}
+
+### Login as Admin
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@example.com",
+  "password": "password123"
+}
+
+### ==================================
+### PROJECT ENDPOINTS (Protected)
+### ==================================
+
+### Create a new project
+POST {{baseUrl}}/projects
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "Project Alpha",
+  "description": "A sample project for testing"
+}
+
+### Get all projects
+GET {{baseUrl}}/projects
+Authorization: Bearer {{token}}
+
+### Get project by ID
+GET {{baseUrl}}/projects/1
+Authorization: Bearer {{token}}
+
+### Update a project
+PUT {{baseUrl}}/projects/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "Updated Project Alpha",
+  "description": "Updated description"
+}
+
+### Get project progress
+GET {{baseUrl}}/projects/1/progress
+Authorization: Bearer {{token}}
+
+### Delete project by ID
+DELETE {{baseUrl}}/projects/1
+Authorization: Bearer {{token}}
+
+### ==================================
+### TASK ENDPOINTS (Protected)
+### ==================================
+
+### Create a new task
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "Design database schema",
+  "description": "Create the full ERD",
+  "dueDate": "2025-02-10",
+  "projectId": 1
+}
+
+### Get all tasks for a project
+GET {{baseUrl}}/tasks/project/1
+Authorization: Bearer {{token}}
+
+### Get a task by ID
+GET {{baseUrl}}/tasks/1
+Authorization: Bearer {{token}}
+
+### Update a task
+PUT {{baseUrl}}/tasks/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "Updated task title",
+  "description": "Updated description",
+  "dueDate": "2025-03-01",
+  "completed": true
+}
+
+### Toggle task completion
+PATCH {{baseUrl}}/tasks/1/toggle
+Authorization: Bearer {{token}}
+
+### Delete a task
+DELETE {{baseUrl}}/tasks/1
+Authorization: Bearer {{token}}
+
+### ==================================
+### Test Unauthorized Access
+### ==================================
+
+### Try to get projects without token (should fail with 401)
+GET {{baseUrl}}/projects
+
+### Try to create project without token (should fail with 401)
+POST {{baseUrl}}/projects
+Content-Type: application/json
+
+{
+  "title": "Should Fail",
+  "description": "This should return 401"
+}
