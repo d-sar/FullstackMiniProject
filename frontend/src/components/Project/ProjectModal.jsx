@@ -1,26 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { projectAPI } from '../../services/api';
 import { toast } from 'react-toastify';
 
-const ProjectModal = ({ onClose, onSuccess }) => {
+const ProjectModal = ({ project, onClose, onSuccess }) => {
   const [formData, setFormData] = useState({ title: '', description: '' });
+  const isEditing = !!project;
+
+  useEffect(() => {
+    if (project) {
+      setFormData({
+        title: project.title,
+        description: project.description || ''
+      });
+    }
+  }, [project]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await projectAPI.create(formData);
-      toast.success('Project created successfully!');
+      if (isEditing) {
+        await projectAPI.update(project.id, formData);
+        toast.success('Project updated successfully!');
+      } else {
+        await projectAPI.create(formData);
+        toast.success('Project created successfully!');
+      }
       setFormData({ title: '', description: '' });
       onSuccess();
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Failed to create project');
+      toast.error(error.response?.data?.message || `Failed to ${isEditing ? 'update' : 'create'} project`);
     }
   };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg p-8 w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-4">Create New Project</h2>
+        <h2 className="text-2xl font-bold mb-4">
+          {isEditing ? 'Edit Project' : 'Create New Project'}
+        </h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700 mb-2">Title *</label>
@@ -47,7 +64,7 @@ const ProjectModal = ({ onClose, onSuccess }) => {
               type="submit"
               className="flex-1 bg-primary text-white py-2 rounded-lg hover:bg-blue-600 transition"
             >
-              Create
+              {isEditing ? 'Update' : 'Create'}
             </button>
             <button
               type="button"

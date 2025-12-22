@@ -10,12 +10,15 @@ import Navbar from './components/Layout/Navbar';
 import ProjectList from './components/Project/ProjectList';
 import ProjectDetail from './components/Project/ProjectDetail';
 import { useAuth } from './context/AuthContext';
+import './App.css';
 
 // Layout pour les pages protégées
 const ProtectedLayout = ({ children }) => {
   return (
     <>
-      <Navbar />
+    
+      <Navbar/>
+      
       <div className="min-h-screen bg-gray-50">
         {children}
       </div>
@@ -31,6 +34,7 @@ const PublicRoute = ({ children }) => {
 
 function AppContent() {
   return (
+    <div className="App">
     <Router>
       <ToastContainer
         position="top-right"
@@ -89,6 +93,7 @@ function AppContent() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
+    </div>
   );
 }
 

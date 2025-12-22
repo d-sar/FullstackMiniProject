@@ -4,7 +4,8 @@
 
 ### Variables
 @baseUrl = http://localhost:8085/api
-@token =eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuZXd1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzY1ODg4NTEwLCJleHAiOjE3NjU5NzQ5MTB9.2O9P7JNVDUGYYPG_MxNUoyQ-f-iNVllUvx9pUueab3xNUKvz-mijVqrTPdVbN1jcHu3JWlixuyt-WKiaeC6nuw
+@token =eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuZXd1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzY1OTY3Njk3LCJleHAiOjE3NjYwNTQwOTd9.oiJm0pv2mRbW1vq6QafvKQ72FdPUdZMnBc71FTl2gnJbhJjrxOkGEm093Z_bPjgeegqmn9xMl0h9lHr4WC4Dcw
+
 ### ==================================
 ### AUTHENTICATION ENDPOINTS (Public)
 ### ==================================

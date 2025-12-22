@@ -7,13 +7,13 @@ import ProjectInfo from './ProjectInfo';
 import TaskList from './../Task/TaskList';
 import TaskModal from './../Task/TaskModal';
 
-
 const ProjectDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showTaskModal, setShowTaskModal] = useState(false);
+  const [editingTask, setEditingTask] = useState(null);
   const [taskForm, setTaskForm] = useState({ title: '', description: '', dueDate: '' });
 
   useEffect(() => {
@@ -35,13 +35,19 @@ const ProjectDetail = () => {
   const handleCreateTask = async (e) => {
     e.preventDefault();
     try {
-      await taskAPI.create({ ...taskForm, projectId: parseInt(id) });
-      toast.success('Task created successfully!');
+      if (editingTask) {
+        await taskAPI.update(editingTask.id, taskForm);
+        toast.success('Task updated successfully!');
+      } else {
+        await taskAPI.create({ ...taskForm, projectId: parseInt(id) });
+        toast.success('Task created successfully!');
+      }
       setShowTaskModal(false);
+      setEditingTask(null);
       setTaskForm({ title: '', description: '', dueDate: '' });
       fetchProject();
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Failed to create task');
+      toast.error(error.response?.data?.message || `Failed to ${editingTask ? 'update' : 'create'} task`);
     }
   };
 
@@ -54,6 +60,11 @@ const ProjectDetail = () => {
     }
   };
 
+  const handleEditTask = (task) => {
+    setEditingTask(task);
+    setShowTaskModal(true);
+  };
+
   const handleDeleteTask = async (taskId) => {
     if (window.confirm('Are you sure you want to delete this task?')) {
       try {
@@ -64,6 +75,12 @@ const ProjectDetail = () => {
         toast.error('Failed to delete task');
       }
     }
+  };
+
+  const handleCloseModal = () => {
+    setShowTaskModal(false);
+    setEditingTask(null);
+    setTaskForm({ title: '', description: '', dueDate: '' });
   };
 
   if (loading) return <div className="flex justify-center items-center h-screen"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div></div>;
@@ -83,9 +100,22 @@ const ProjectDetail = () => {
         </button>
       </div>
 
-      <TaskList tasks={project.tasks} onToggle={handleToggleTask} onDelete={handleDeleteTask} />
+      <TaskList 
+        tasks={project.tasks} 
+        onToggle={handleToggleTask} 
+        onEdit={handleEditTask}
+        onDelete={handleDeleteTask} 
+      />
 
-      {showTaskModal && <TaskModal taskForm={taskForm} setTaskForm={setTaskForm} onSubmit={handleCreateTask} onClose={() => setShowTaskModal(false)} />}
+      {showTaskModal && (
+        <TaskModal 
+          task={editingTask}
+          taskForm={taskForm} 
+          setTaskForm={setTaskForm} 
+          onSubmit={handleCreateTask} 
+          onClose={handleCloseModal} 
+        />
+      )}
     </div>
   );
 };

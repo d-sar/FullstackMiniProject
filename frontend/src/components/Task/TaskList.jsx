@@ -1,7 +1,7 @@
 import React from 'react';
-import { FaCheck, FaTrash } from 'react-icons/fa';
+import { FaCheck, FaTrash, FaEdit } from 'react-icons/fa';
 
-const TaskList = ({ tasks, onToggle, onDelete }) => {
+const TaskList = ({ tasks, onToggle, onDelete, onEdit }) => {
   if (tasks.length === 0) {
     return (
       <div className="text-center py-12 bg-white rounded-lg shadow">
@@ -41,6 +41,13 @@ const TaskList = ({ tasks, onToggle, onDelete }) => {
               </p>
             )}
           </div>
+
+          <button
+            onClick={() => onEdit(task)}
+            className="text-blue-500 hover:bg-blue-50 p-2 rounded transition"
+          >
+            <FaEdit />
+          </button>
 
           <button
             onClick={() => onDelete(task.id)}
