@@ -3,15 +3,15 @@
 ##  Description
 Full-stack project and task management application developed with Spring Boot and React.
 
-##  Table of Contents
-- [Technologies Used](#-technologies-used)
-- [Project Architecture](#-project-architecture)
-- [Installation and Setup](#-installation-and-setup)
-- [API Endpoints](#-api-endpoints)
-- [Request Examples](#-request-examples)
-- [Features](#-features)
-- [Technical Features](#-technical-features)
-- [Developer](#-developer)
+## Table of Contents
+- [Technologies Used](#technologies-used)
+- [Project Architecture](#project-architecture)
+- [Installation and Setup](#installation-and-setup)
+- [API Endpoints](#api-endpoints)
+- [Request Examples](#request-examples)
+- [Features](#features)
+- [Technical Features](#technical-features)
+- [Developer](#developer)
 
 ## Class Diagram
 
