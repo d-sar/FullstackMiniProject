@@ -15,7 +15,7 @@ public class CorsConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        // Autoriser l'origine de votre frontend Angular
+        // Autoriser l'origine de votre frontend
         configuration.setAllowedOrigins(List.of("http://localhost:3000"));
 
         // Autoriser les méthodes HTTP nécessaires

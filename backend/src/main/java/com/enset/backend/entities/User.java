@@ -77,7 +77,7 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return enabled;
     }
-    // Ajoute ce constructeur dans ta classe User
+    // Ajoute ce constructeur dans classe User
     public User(String email, String password, String fullName, String role, Boolean enabled, LocalDateTime createdAt) {
         this.email = email;
         this.password = password;
